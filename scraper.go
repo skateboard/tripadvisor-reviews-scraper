@@ -146,10 +146,10 @@ func (s *scraper) startScrape(url string) {
 			if err != nil {
 				continue
 			}
-			fmt.Printf("%s: iteration: %d. scraped reviews: %d\n", i, totalReviewsScraped)
+			fmt.Printf("%s: iteration: %d. scraped reviews: %d\n", url, i, totalReviewsScraped)
 		}
 	}
-	fmt.Printf("%s:  scraped reviews: %d\n", totalReviewsScraped)
+	fmt.Printf("%s:  scraped reviews: %d\n", url, totalReviewsScraped)
 }
 
 func makeRequest(client tls_client.HttpClient,
