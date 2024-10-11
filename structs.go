@@ -112,6 +112,7 @@ type UserProfile struct {
 
 // Review is a struct that represents the review object in the response body from TripAdvisor endpoints
 type Review struct {
+	Location        string `json:"location"`
 	ID              int    `json:"id"`
 	CreatedDate     string `json:"createdDate"`
 	PublishedDate   string `json:"publishedDate"`

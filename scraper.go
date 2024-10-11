@@ -76,7 +76,7 @@ func (s *scraper) startScrape(url string) {
 		fmt.Printf("Error parsing URL: %s\n", url)
 		return
 	}
-	fmt.Printf("%s: Location ID: %s\n", url, locationID)
+	fmt.Printf("%s: Location ID: %d\n", url, locationID)
 	fmt.Printf("%s: Location Name: %s\n", url, locationName)
 
 	queryID := getQueryID(queryType)
@@ -110,8 +110,7 @@ func (s *scraper) startScrape(url string) {
 	iterations := calculateIterations(uint32(reviewCount))
 	fmt.Printf("%s: total iterations: %d\n", url, iterations)
 
-	var allReviews []Review
-	var location Location
+	totalReviewsScraped := 0
 	// Scrape the reviews
 	for i := uint32(0); i < iterations; i++ {
 		// Introduce random delay to avoid getting blocked. The delay is between 1 and 5 seconds
@@ -140,25 +139,20 @@ func (s *scraper) startScrape(url string) {
 			reviews := response[0].Data.Locations[0].ReviewListPage.Reviews
 
 			// Append the reviews to the allReviews slice
-			allReviews = append(allReviews, reviews...)
+			totalReviewsScraped += len(reviews)
 
 			// Store the location data
 			location = response[0].Data.Locations[0].Location
+
+			sortReviewsByDate(reviews)
+			err = s.actor.Output(reviews)
+			if err != nil {
+				continue
+			}
+			fmt.Printf("%s: iteration: %d. scraped reviews: %d\n", i, totalReviewsScraped)
 		}
 	}
-	fmt.Printf("%s: scraped reviews: %d\n", len(allReviews))
-
-	sortReviewsByDate(allReviews)
-	err = s.actor.Output(Feedback{
-		Location: location,
-		Reviews:  allReviews,
-	})
-	if err != nil {
-		fmt.Printf("%s: failed to send output: %v\n", url, err)
-		return
-	}
-	fmt.Printf("%s: sent reviews output\n", url)
-
+	fmt.Printf("%s:  scraped reviews: %d\n", totalReviewsScraped)
 }
 
 func makeRequest(client tls_client.HttpClient,
