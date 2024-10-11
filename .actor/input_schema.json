@@ -1,0 +1,38 @@
+{
+    "title": "Tripadvisor Reviews Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "startUrls": {
+            "title": "Start URLs",
+            "type": "array",
+            "description": "URLs to start with",
+            "prefill": [{ "url": "https://www.tripadvisor.com/Hotel_Review-g60763-d208453-Reviews-Hilton_New_York_Times_Square-New_York_City_New_York.html" }],
+            "editor": "requestListSources"
+        },
+        "offset": {
+            "title": "offset",
+            "description": "Start from specific offset",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+        },
+        "limit": {
+            "title": "limit",
+            "description": "Limit number of results",
+            "type": "integer",
+            "minimum": 5,
+            "default": 20
+        },
+        "proxyConfiguration":{
+            "title": "Proxy configuration",
+            "type": "object",
+            "description": "Select proxies for scraper.",
+            "prefill": { "useApifyProxy": true },
+            "editor": "proxy"
+        }
+    },
+    "required": [
+        "startUrls"
+    ]
+}
