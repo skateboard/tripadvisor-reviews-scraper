@@ -141,9 +141,6 @@ func (s *scraper) startScrape(url string) {
 			// Append the reviews to the allReviews slice
 			totalReviewsScraped += len(reviews)
 
-			// Store the location data
-			location = response[0].Data.Locations[0].Location
-
 			sortReviewsByDate(reviews)
 			err = s.actor.Output(reviews)
 			if err != nil {
