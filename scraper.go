@@ -17,24 +17,18 @@ import (
 
 	http "github.com/bogdanfinn/fhttp"
 	tls_client "github.com/bogdanfinn/tls-client"
-	"github.com/bogdanfinn/tls-client/profiles"
 	"github.com/data-harvesters/goapify"
+	goapifytls "github.com/data-harvesters/goapify-tls"
 )
 
 type scraper struct {
 	actor  *goapify.Actor
 	input  *input
-	client tls_client.HttpClient
+	client *goapifytls.TlsClient
 }
 
 func newScraper(input *input, actor *goapify.Actor) (*scraper, error) {
-	options := []tls_client.HttpClientOption{
-		tls_client.WithTimeoutSeconds(30),
-		tls_client.WithClientProfile(profiles.Chrome_124),
-		tls_client.WithNotFollowRedirects(),
-	}
-
-	client, err := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
+	tlsClient, err := goapifytls.NewTlsClient(actor, goapifytls.DefaultOptions())
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +36,7 @@ func newScraper(input *input, actor *goapify.Actor) (*scraper, error) {
 	return &scraper{
 		actor:  actor,
 		input:  input,
-		client: client,
+		client: tlsClient,
 	}, nil
 }
 
@@ -85,18 +79,7 @@ func (s *scraper) startScrape(url string) {
 		return
 	}
 
-	client := s.client
-	if s.actor.ProxyConfiguration != nil {
-		proxy, err := s.actor.ProxyConfiguration.Proxy()
-		if err != nil {
-			fmt.Printf("%s: Failed to get proxy: %s\n", url, err)
-			return
-		}
-
-		client.SetProxy(proxy.String())
-	}
-
-	reviewCount, err := fetchReviewCount(client, locationID, queryType, []string{"en"})
+	reviewCount, err := fetchReviewCount(s.client.ProxiedClient(), locationID, queryType, []string{"en"})
 	if err != nil {
 		fmt.Printf("%s: error fetching review count: %s\n", url, err)
 		return
@@ -121,7 +104,7 @@ func (s *scraper) startScrape(url string) {
 		// Calculate the offset for the current iteration
 		offset := calculateOffset(i)
 
-		resp, err := makeRequest(client, queryID, []string{"en"}, locationID, offset, 20)
+		resp, err := makeRequest(s.client.ProxiedClient(), queryID, []string{"en"}, locationID, offset, 20)
 		if err != nil {
 			fmt.Printf("%s: iteration: %d. error making request: %v\n", url, i, err)
 			continue

@@ -12,6 +12,10 @@ github.com/data-harvesters/goapify v0.0.0-20241011045807-c953b512a86b h1:ck/eQaR
 github.com/data-harvesters/goapify v0.0.0-20241011045807-c953b512a86b/go.mod h1:YQePeXo4VSGfh7PBbU00S052ccbbfZ3pTcBCRfr/jQw=
 github.com/data-harvesters/goapify v0.0.0-20241011053248-e4daefb664a0 h1:/u+0gI//YbiME2a9T1ueXjVB7LJQligFrrZoFT4eNHE=
 github.com/data-harvesters/goapify v0.0.0-20241011053248-e4daefb664a0/go.mod h1:YQePeXo4VSGfh7PBbU00S052ccbbfZ3pTcBCRfr/jQw=
+github.com/data-harvesters/goapify-tls v0.0.0-20241011065514-d0f8ce60dc45 h1:M7NkwgrhfVDEpZGzEVh2WZpPqsjDVXe/rRh0sA9Sv6c=
+github.com/data-harvesters/goapify-tls v0.0.0-20241011065514-d0f8ce60dc45/go.mod h1:/8puSpU2mbI6t3MPzGmr7AF4vEyrw3aO3PKm2W0Hjp4=
+github.com/data-harvesters/goapify-tls v0.0.0-20241011065840-e94c72f463dc h1:1cNhdLRBtnW+8BqxOoPGYP7RrDcaBRQYb94LpMkgx80=
+github.com/data-harvesters/goapify-tls v0.0.0-20241011065840-e94c72f463dc/go.mod h1:/8puSpU2mbI6t3MPzGmr7AF4vEyrw3aO3PKm2W0Hjp4=
 github.com/klauspost/compress v1.16.7 h1:2mk3MPGNzKyxErAw8YaohYh69+pa4sIQSC0fPGCFR9I=
 github.com/klauspost/compress v1.16.7/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
 github.com/quic-go/quic-go v0.37.4 h1:ke8B73yMCWGq9MfrCCAw0Uzdm7GaViC3i39dsIdDlH4=

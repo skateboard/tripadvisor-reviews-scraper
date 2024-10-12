@@ -8,37 +8,29 @@ This Actor is a powerful, user-fiendly tool made to scrape reviews from specifie
 Made with Golang 1.22.1
 
 ## Tutorial
-
 Basic Usage
-
 ```json
 {
-    "startUrls": [
-        {
-            "url": "https://www.tripadvisor.com/Hotel_Review-g188107-d231860-Reviews-Beau_Rivage_Palace-Lausanne_Canton_of_Vaud.html"
-        }
-    ],
-    "offset": 0,
-    "limit": 20
+  "startUrls": [
+    {
+      "url": "https://www.tripadvisor.com/Hotel_Review-g188107-d231860-Reviews-Beau_Rivage_Palace-Lausanne_Canton_of_Vaud.html"
+    }
+  ],
+  "offset": 0,
+  "limit": 20
 }
 ```
 
 | parameter | type | argument | description |
-
 | --------- | ----- | ------------------------- | ---------------------------- |
-
 | startUrls | array | _[]_ | An array of start urls |
-
 | offset | int | _default=0_ | Start from a specific offset |
-
 | limit | int | _default=20_ | Limit number of results |
 
 ### Output Sample
-
 ```json
-
 [
-     {
+  {
     "id": 972086842,
     "createdDate": "2024-09-30",
     "publishedDate": "2024-09-30",
@@ -129,5 +121,4 @@ Basic Usage
     "username": "superReviewer"
   }
 ]
-
 ```
